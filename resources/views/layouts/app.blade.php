@@ -117,7 +117,7 @@
                         <img alt="Profil" class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()?->name ?? 'Alex') }}&background=00288e&color=fff"/>
                     </div>
                     <div class="truncate max-w-[120px]">
-                        <p class="font-label-sm text-label-sm text-on-surface-variant">{{ now()->hour >= 18 ? 'Bonsoir' : 'Bonjour' }},</p>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">{{ now()->hour < 12 ? 'Bonjour' : (now()->hour < 18 ? 'Bon après-midi' : 'Bonsoir') }},</p>
                         <p class="font-body-md text-body-md font-semibold text-on-surface truncate">{{ auth()->user()?->name ?? 'Alex' }}</p>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                     <img alt="Profil" class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()?->name ?? 'Alex') }}&background=00288e&color=fff"/>
                 </div>
                 <div>
-                    <p class="font-label-sm text-label-sm text-on-surface-variant">{{ now()->hour >= 18 ? 'Bonsoir' : 'Bonjour' }}, {{ auth()->user()?->name ?? 'Alex' }} !</p>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant">{{ now()->hour < 12 ? 'Bonjour' : (now()->hour < 18 ? 'Bon après-midi' : 'Bonsoir') }}, {{ auth()->user()?->name ?? 'Alex' }} !</p>
                     <h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">FinTrack</h1>
                 </div>
             </div>
