@@ -21,13 +21,69 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // 1. Création de l'utilisateur de test
-        $user = User::firstOrCreate(
+        $user = User::updateOrCreate(
             ['email' => 'admin@fintrack.com'],
             [
                 'name' => 'Rafiou',
                 'password' => Hash::make('password'),
                 'currency' => 'EUR',
                 'currency_symbol' => '€',
+                'is_admin' => true,
+                'status' => 'active',
+                'tier' => 'enterprise',
+            ]
+        );
+
+        // Création des autres utilisateurs de test (Stitch)
+        User::updateOrCreate(
+            ['email' => 'elena.r@financely.com'],
+            [
+                'name' => 'Elena Rodriguez',
+                'password' => Hash::make('password'),
+                'currency' => 'EUR',
+                'currency_symbol' => '€',
+                'is_admin' => false,
+                'status' => 'active',
+                'tier' => 'premium',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'm.sterling@agency.io'],
+            [
+                'name' => 'Marcus Sterling',
+                'password' => Hash::make('password'),
+                'currency' => 'USD',
+                'currency_symbol' => '$',
+                'is_admin' => false,
+                'status' => 'suspended',
+                'tier' => 'free',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'sarah.chen@tech.com'],
+            [
+                'name' => 'Sarah Chen',
+                'password' => Hash::make('password'),
+                'currency' => 'USD',
+                'currency_symbol' => '$',
+                'is_admin' => false,
+                'status' => 'active',
+                'tier' => 'enterprise',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'j.smith@freelance.org'],
+            [
+                'name' => 'Jordan Smith',
+                'password' => Hash::make('password'),
+                'currency' => 'EUR',
+                'currency_symbol' => '€',
+                'is_admin' => false,
+                'status' => 'active',
+                'tier' => 'premium',
             ]
         );
 
