@@ -210,7 +210,7 @@
             <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-md text-label-sm text-on-surface-variant">
                 <div class="flex items-center gap-2">
                     <div class="w-6 h-6 rounded-lg bg-primary text-on-primary flex items-center justify-center font-bold">F</div>
-                    <span class="font-semibold text-on-surface">FinTrack &copy; {{ date('Y') }}</span>
+                    <span class="font-semibold text-on-surface">FinTrack &copy; {{ date('Y') }} — Réalisé par Dynamic Technology Group</span>
                 </div>
                 <div class="flex items-center gap-6 font-medium">
                     <a href="https://laravel.com" target="_blank" class="hover:text-primary transition-colors">Laravel 13</a>

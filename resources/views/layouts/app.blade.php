@@ -129,6 +129,9 @@
                     </button>
                 </form>
             </div>
+            <div class="text-[10px] text-center text-outline-variant mt-2 font-medium">
+                Réalisé par Dynamic Technology Group
+            </div>
         </div>
     </aside>
 
