@@ -1,8 +1,8 @@
 <x-guest-layout>
-    <!-- Container -->
-    <div class="w-full max-w-[1280px] mx-auto py-lg flex flex-col md:flex-row items-center justify-center gap-lg">
+    <!-- Centered Card Container -->
+    <div class="w-full max-w-md mx-auto py-lg">
         <!-- Registration Card -->
-        <div class="bg-surface-container-lowest w-full max-w-md p-lg md:p-xl rounded-3xl shadow-xl border border-outline-variant/30 relative overflow-hidden">
+        <div class="bg-surface-container-lowest w-full p-lg md:p-xl rounded-3xl shadow-xl border border-outline-variant/30 relative overflow-hidden">
             <!-- Atmospheric Gradient Element -->
             <div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
             
@@ -93,18 +93,16 @@
                 </p>
             </div>
         </div>
+    </div>
 
-        <!-- Desktop Security Badge (Asymmetric Graphic) -->
-        <div class="hidden lg:flex flex-col gap-sm bg-surface-container-high/50 backdrop-blur-md px-lg py-md rounded-2xl shadow-sm border border-outline-variant/20 self-end mb-lg">
-            <div class="flex items-center gap-sm">
-                <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
-                </div>
-                <div>
-                    <p class="font-label-md text-label-md text-on-surface">Sécurité de pointe</p>
-                    <p class="font-label-sm text-label-sm text-on-surface-variant font-medium">Chiffrement fort & Anti-spam Honeypot</p>
-                </div>
-            </div>
+    <!-- Floating Asymmetric Security Badge (Desktop Only) -->
+    <div class="hidden lg:flex fixed bottom-6 right-6 items-center gap-sm bg-surface-container-high/60 backdrop-blur-md px-lg py-md rounded-2xl shadow-sm border border-outline-variant/20 z-10 pointer-events-none">
+        <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+        </div>
+        <div>
+            <p class="font-label-md text-label-md text-on-surface">Sécurité de pointe</p>
+            <p class="font-label-sm text-label-sm text-on-surface-variant font-medium">Chiffrement fort & Anti-spam Honeypot</p>
         </div>
     </div>
 </x-guest-layout>
