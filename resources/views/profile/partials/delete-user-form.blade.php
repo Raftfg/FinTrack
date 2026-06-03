@@ -28,13 +28,16 @@
             </p>
 
             <div class="mt-6">
-                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" required />
 
                 <x-text-input
                     id="password"
                     name="password"
                     type="password"
                     class="mt-1 block w-3/4"
+                    required
+                    minlength="8"
+                    maxlength="100"
                     placeholder="{{ __('Password') }}"
                 />
 

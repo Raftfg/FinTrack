@@ -49,11 +49,11 @@
 
                     <!-- Email Address -->
                     <div class="flex flex-col gap-xs">
-                        <label class="font-label-md text-label-md text-on-surface pl-1" for="email">Email</label>
+                        <label class="font-label-md text-label-md text-on-surface pl-1" for="email">Email <span class="text-red-500 font-bold">*</span></label>
                         <div class="relative flex items-center">
                             <span class="material-symbols-outlined absolute left-4 text-outline">mail</span>
                             <input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none font-body-md text-on-surface" 
-                                   id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="nom@exemple.com" />
+                                   id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" maxlength="255" placeholder="nom@exemple.com" />
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
@@ -61,7 +61,7 @@
                     <!-- Password -->
                     <div class="flex flex-col gap-xs">
                         <div class="flex justify-between items-center pl-1">
-                            <label class="font-label-md text-label-md text-on-surface" for="password">Mot de passe</label>
+                            <label class="font-label-md text-label-md text-on-surface" for="password">Mot de passe <span class="text-red-500 font-bold">*</span></label>
                             @if (Route::has('password.request'))
                                 <a class="font-label-sm text-label-sm text-primary hover:underline transition-all" href="{{ route('password.request') }}">
                                     {{ __('Forgot your password?') }}
@@ -71,7 +71,7 @@
                         <div class="relative flex items-center" x-data="{ show: false }">
                             <span class="material-symbols-outlined absolute left-4 text-outline">lock</span>
                             <input class="w-full pl-12 pr-12 py-4 bg-surface-container-low border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none font-body-md text-on-surface" 
-                                   id="password" :type="show ? 'text' : 'password'" name="password" required autocomplete="current-password" placeholder="••••••••" />
+                                   id="password" :type="show ? 'text' : 'password'" name="password" required autocomplete="current-password" minlength="8" maxlength="100" placeholder="••••••••" />
                             <button class="absolute right-4 text-outline hover:text-primary transition-colors" type="button" @click="show = !show">
                                 <span class="material-symbols-outlined" x-text="show ? 'visibility_off' : 'visibility'">visibility</span>
                             </button>

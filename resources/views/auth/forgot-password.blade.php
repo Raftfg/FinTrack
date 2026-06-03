@@ -24,11 +24,11 @@
 
             <!-- Email Address -->
             <div class="space-y-xs">
-                <label class="block font-label-md text-label-md text-on-surface-variant" for="email">Adresse email</label>
+                <label class="block font-label-md text-label-md text-on-surface-variant" for="email">Adresse email <span class="text-red-500 font-bold">*</span></label>
                 <div class="relative group">
                     <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
                     <input class="w-full pl-xl pr-md py-3 rounded-lg border border-outline-variant bg-surface-container-low font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none text-on-surface" 
-                           id="email" type="email" name="email" :value="old('email')" required autofocus placeholder="jean.dupont@exemple.com" />
+                           id="email" type="email" name="email" :value="old('email')" required autofocus maxlength="255" placeholder="jean.dupont@exemple.com" />
                 </div>
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>

@@ -228,31 +228,31 @@
                     @honeypot
 
                     <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Nom Complet</label>
-                        <input name="name" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="text" placeholder="Ex: Jean Dupont"/>
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Nom Complet <span class="text-red-500 font-bold">*</span></label>
+                        <input name="name" required minlength="2" maxlength="255" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="text" placeholder="Ex: Jean Dupont"/>
                     </div>
                     
                     <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Adresse Email</label>
-                        <input name="email" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="email" placeholder="Ex: jean.dupont@email.com"/>
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Adresse Email <span class="text-red-500 font-bold">*</span></label>
+                        <input name="email" required maxlength="255" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="email" placeholder="Ex: jean.dupont@email.com"/>
                     </div>
 
                     <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Mot de Passe</label>
-                        <input name="password" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="password" placeholder="Mot de passe temporaire"/>
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Mot de Passe <span class="text-red-500 font-bold">*</span></label>
+                        <input name="password" required minlength="8" maxlength="100" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="password" placeholder="Mot de passe temporaire"/>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Statut</label>
-                            <select name="status" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Statut <span class="text-red-500 font-bold">*</span></label>
+                            <select name="status" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
                                 <option value="active">Actif</option>
                                 <option value="suspended">Suspendu</option>
                             </select>
                         </div>
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Offre</label>
-                            <select name="tier" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Offre <span class="text-red-500 font-bold">*</span></label>
+                            <select name="tier" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
                                 <option value="free">Gratuit</option>
                                 <option value="premium">Premium</option>
                                 <option value="enterprise">Enterprise</option>
@@ -289,26 +289,26 @@
                     @honeypot
 
                     <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Nom Complet</label>
-                        <input name="name" x-model="selectedUser.name" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="text"/>
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Nom Complet <span class="text-red-500 font-bold">*</span></label>
+                        <input name="name" x-model="selectedUser.name" required minlength="2" maxlength="255" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="text"/>
                     </div>
                     
                     <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Adresse Email</label>
-                        <input name="email" x-model="selectedUser.email" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="email"/>
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Adresse Email <span class="text-red-500 font-bold">*</span></label>
+                        <input name="email" x-model="selectedUser.email" required maxlength="255" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="email"/>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Statut</label>
-                            <select name="status" x-model="selectedUser.status" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Statut <span class="text-red-500 font-bold">*</span></label>
+                            <select name="status" x-model="selectedUser.status" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
                                 <option value="active">Actif</option>
                                 <option value="suspended">Suspendu</option>
                             </select>
                         </div>
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Offre</label>
-                            <select name="tier" x-model="selectedUser.tier" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Offre <span class="text-red-500 font-bold">*</span></label>
+                            <select name="tier" x-model="selectedUser.tier" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
                                 <option value="free">Gratuit</option>
                                 <option value="premium">Premium</option>
                                 <option value="enterprise">Enterprise</option>

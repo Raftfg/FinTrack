@@ -49,16 +49,16 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Nom de la Plateforme</label>
-                            <input name="platform_name" required value="{{ $settings['platform_name'] }}" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="text"/>
+                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Nom de la Plateforme <span class="text-red-500 font-bold">*</span></label>
+                            <input name="platform_name" required maxlength="255" value="{{ $settings['platform_name'] }}" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="text"/>
                         </div>
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Email de Support</label>
-                            <input name="support_email" required value="{{ $settings['support_email'] }}" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="email"/>
+                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Email de Support <span class="text-red-500 font-bold">*</span></label>
+                            <input name="support_email" required maxlength="255" value="{{ $settings['support_email'] }}" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="email"/>
                         </div>
                         <div class="md:col-span-2 space-y-1">
-                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Description de la Plateforme</label>
-                            <textarea name="platform_description" required class="w-full p-4 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" rows="3">{{ $settings['platform_description'] }}</textarea>
+                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Description de la Plateforme <span class="text-red-500 font-bold">*</span></label>
+                            <textarea name="platform_description" required maxlength="1000" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" rows="3">{{ $settings['platform_description'] }}</textarea>
                         </div>
                     </div>
                 </section>
@@ -99,16 +99,16 @@
                         <!-- Inputs Rows -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                             <div class="space-y-1">
-                                <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Longueur min. mot de passe</label>
-                                <select name="min_password_length" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
+                                <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Longueur min. mot de passe <span class="text-red-500 font-bold">*</span></label>
+                                <select name="min_password_length" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
                                     <option value="8" {{ $settings['min_password_length'] == 8 ? 'selected' : '' }}>8 caractères</option>
                                     <option value="12" {{ $settings['min_password_length'] == 12 ? 'selected' : '' }}>12 caractères</option>
                                     <option value="16" {{ $settings['min_password_length'] == 16 ? 'selected' : '' }}>16 caractères</option>
                                 </select>
                             </div>
                             <div class="space-y-1">
-                                <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Expiration mot de passe (Jours)</label>
-                                <input name="password_expiry" value="{{ $settings['password_expiry'] }}" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="number"/>
+                                <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Expiration mot de passe (Jours) <span class="text-red-500 font-bold">*</span></label>
+                                <input name="password_expiry" required min="1" max="365" step="1" value="{{ $settings['password_expiry'] }}" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="number"/>
                             </div>
                         </div>
                     </div>
@@ -124,12 +124,12 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Limite Journalière (USD/XOF)</label>
-                            <input name="daily_transaction_limit" value="{{ $settings['daily_transaction_limit'] }}" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="text"/>
+                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Limite Journalière (USD/XOF) <span class="text-red-500 font-bold">*</span></label>
+                            <input name="daily_transaction_limit" required min="0.01" step="0.01" value="{{ $settings['daily_transaction_limit'] }}" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]" type="number"/>
                         </div>
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Devise de Référence</label>
-                            <select name="default_currency" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
+                            <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Devise de Référence <span class="text-red-500 font-bold">*</span></label>
+                            <select name="default_currency" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#00288e]">
                                 <option value="USD" {{ $settings['default_currency'] == 'USD' ? 'selected' : '' }}>USD - Dollar Américain</option>
                                 <option value="EUR" {{ $settings['default_currency'] == 'EUR' ? 'selected' : '' }}>EUR - Euro</option>
                                 <option value="XOF" {{ $settings['default_currency'] == 'XOF' ? 'selected' : '' }}>XOF - Franc CFA (BCEAO)</option>

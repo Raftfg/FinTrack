@@ -222,7 +222,7 @@
                 @csrf
                 @honeypot
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Type</label>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Type <span class="text-red-500 font-bold">*</span></label>
                     <select name="type" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                         <option value="revenu">Revenu</option>
                         <option value="depense">Dépense</option>
@@ -231,20 +231,20 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant (FCFA)</label>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant (FCFA) <span class="text-red-500 font-bold">*</span></label>
                     <input type="number" step="0.01" min="0.01" name="montant" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                 </div>
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Catégorie</label>
-                    <input type="text" name="categorie" placeholder="ex: Alimentation, Salaire..." class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Catégorie <span class="text-red-500 font-bold">*</span></label>
+                    <input type="text" name="categorie" placeholder="ex: Alimentation, Salaire..." maxlength="100" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                 </div>
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Date</label>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Date <span class="text-red-500 font-bold">*</span></label>
                     <input type="date" name="date_transaction" value="{{ date('Y-m-d') }}" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                 </div>
                 <div>
                     <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Note / Description</label>
-                    <input type="text" name="note" placeholder="Optionnel" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
+                    <input type="text" name="note" placeholder="Optionnel" maxlength="255" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
                 </div>
                 <div class="flex gap-md pt-md">
                     <button type="button" @click="showTransactionModal = false" class="flex-grow py-3 bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors rounded-xl font-label-md text-label-md">
@@ -266,29 +266,29 @@
                 @csrf
                 @honeypot
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Nom du débiteur</label>
-                    <input type="text" name="personne" placeholder="ex: Jean Dupont" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Nom du débiteur <span class="text-red-500 font-bold">*</span></label>
+                    <input type="text" name="personne" placeholder="ex: Jean Dupont" maxlength="255" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                 </div>
                 <div class="grid grid-cols-2 gap-sm">
                     <div>
                         <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Email débiteur</label>
-                        <input type="email" name="email" placeholder="ex: jean@example.com" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
+                        <input type="email" name="email" placeholder="ex: jean@example.com" maxlength="255" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
                     </div>
                     <div>
                         <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Téléphone débiteur</label>
-                        <input type="text" name="telephone" placeholder="ex: +22997000000" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
+                        <input type="text" name="telephone" placeholder="ex: +22997000000" pattern="^\+?[0-9\s\-]{8,20}$" maxlength="30" title="Veuillez entrer un numéro de téléphone valide (ex: +22997000000)" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant initial (FCFA)</label>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant initial (FCFA) <span class="text-red-500 font-bold">*</span></label>
                     <input type="number" step="0.01" min="0.01" name="montant_initial" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                 </div>
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant remboursé (FCFA)</label>
-                    <input type="number" step="0.01" min="0" value="0.00" name="montant_rembourse" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant remboursé (FCFA) <span class="text-red-500 font-bold">*</span></label>
+                    <input type="number" step="0.01" min="0" value="0.00" name="montant_rembourse" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                 </div>
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Statut</label>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Statut <span class="text-red-500 font-bold">*</span></label>
                     <select name="statut" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                         <option value="non_rembourse">Non remboursé</option>
                         <option value="partiel">Partiellement remboursé</option>
@@ -296,7 +296,7 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Date du prêt</label>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Date du prêt <span class="text-red-500 font-bold">*</span></label>
                     <input type="date" name="date_pret" value="{{ date('Y-m-d') }}" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                 </div>
                 <div>
@@ -305,7 +305,7 @@
                 </div>
                 <div>
                     <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Note / Description</label>
-                    <input type="text" name="note" placeholder="Optionnel" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
+                    <input type="text" name="note" placeholder="Optionnel" maxlength="255" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
                 </div>
                 <div class="flex gap-md pt-md">
                     <button type="button" @click="showLoanModal = false" class="flex-grow py-3 bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors rounded-xl font-label-md text-label-md">
@@ -327,15 +327,15 @@
                 @csrf
                 @honeypot
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Nom de l'objectif</label>
-                    <input type="text" name="nom" placeholder="ex: Achat maison, Épargne..." class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Nom de l'objectif <span class="text-red-500 font-bold">*</span></label>
+                    <input type="text" name="nom" placeholder="ex: Achat maison, Épargne..." maxlength="255" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                 </div>
                 <div>
                     <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Description</label>
-                    <input type="text" name="description" placeholder="Optionnel" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
+                    <input type="text" name="description" placeholder="Optionnel" maxlength="1000" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
                 </div>
                 <div>
-                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant cible (FCFA)</label>
+                    <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant cible (FCFA) <span class="text-red-500 font-bold">*</span></label>
                     <input type="number" step="0.01" min="0.01" name="montant_cible" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                 </div>
                 <div>
@@ -488,7 +488,7 @@
                         @method('PATCH')
                         <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Mettre à jour le prêt</p>
                         <div class="flex gap-sm">
-                            <input type="number" name="ajout_remboursement" min="1" step="1" placeholder="Montant reçu (FCFA)" class="flex-1 bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
+                            <input type="number" name="ajout_remboursement" min="0.01" step="0.01" placeholder="Montant reçu (FCFA)" class="flex-1 bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
                             <select name="statut" class="bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-2 text-body-md">
                                 <option value="">Auto</option>
                                 <option value="partiel">Partiel</option>
@@ -503,7 +503,7 @@
                             </div>
                             <div>
                                 <label class="block text-label-sm text-on-surface-variant mb-xs">Téléphone débiteur</label>
-                                <input type="text" name="telephone" x-model="selectedLoan.telephone" placeholder="ex: +22997000000" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-1.5 text-body-sm">
+                                <input type="text" name="telephone" x-model="selectedLoan.telephone" placeholder="ex: +22997000000" pattern="^\+?[0-9\s\-]{8,20}$" title="Veuillez entrer un numéro de téléphone valide" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-1.5 text-body-sm">
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-sm pt-sm">
@@ -595,7 +595,7 @@
                     @method('PATCH')
                     @honeypot
                     <div>
-                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Type</label>
+                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Type <span class="text-red-500 font-bold">*</span></label>
                         <select name="type" x-model="selectedTransaction.type" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                             <option value="revenu">Revenu</option>
                             <option value="depense">Dépense</option>
@@ -604,20 +604,20 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant (FCFA)</label>
+                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant (FCFA) <span class="text-red-500 font-bold">*</span></label>
                         <input type="number" step="0.01" min="0.01" name="montant" x-model="selectedTransaction.montant" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                     </div>
                     <div>
-                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Catégorie</label>
-                        <input type="text" name="categorie" x-model="selectedTransaction.categorie" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
+                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Catégorie <span class="text-red-500 font-bold">*</span></label>
+                        <input type="text" name="categorie" x-model="selectedTransaction.categorie" maxlength="100" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                     </div>
                     <div>
-                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Date</label>
+                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Date <span class="text-red-500 font-bold">*</span></label>
                         <input type="date" name="date_transaction" :value="selectedTransaction.date_transaction ? selectedTransaction.date_transaction.substring(0,10) : ''" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                     </div>
                     <div>
                         <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Note / Description</label>
-                        <input type="text" name="note" x-model="selectedTransaction.note" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
+                        <input type="text" name="note" x-model="selectedTransaction.note" maxlength="255" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
                     </div>
                     <div class="flex gap-md pt-md">
                         <button type="button" @click="showTransactionEditModal = false; selectedTransaction = null" class="flex-grow py-3 bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors rounded-xl font-label-md text-label-md">
@@ -642,15 +642,15 @@
                     @method('PATCH')
                     @honeypot
                     <div>
-                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Nom de l'objectif</label>
-                        <input type="text" name="nom" x-model="selectedGoal.nom" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
+                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Nom de l'objectif <span class="text-red-500 font-bold">*</span></label>
+                        <input type="text" name="nom" x-model="selectedGoal.nom" maxlength="255" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                     </div>
                     <div>
                         <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Description</label>
-                        <input type="text" name="description" x-model="selectedGoal.description" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
+                        <input type="text" name="description" x-model="selectedGoal.description" maxlength="1000" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md">
                     </div>
                     <div>
-                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant cible (FCFA)</label>
+                        <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Montant cible (FCFA) <span class="text-red-500 font-bold">*</span></label>
                         <input type="number" step="0.01" min="0.01" name="montant_cible" x-model="selectedGoal.montant_cible" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
                     </div>
                     <div>

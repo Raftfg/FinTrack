@@ -27,44 +27,44 @@
 
                 <!-- Name -->
                 <div class="space-y-xs">
-                    <label class="block font-label-md text-label-md text-on-surface-variant" for="name">Nom complet</label>
+                    <label class="block font-label-md text-label-md text-on-surface-variant" for="name">Nom complet <span class="text-red-500 font-bold">*</span></label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">person</span>
                         <input class="w-full pl-xl pr-md py-3 rounded-lg border border-outline-variant bg-surface-container-low font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none text-on-surface" 
-                               id="name" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Jean Dupont" />
+                               id="name" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" minlength="2" maxlength="255" placeholder="Jean Dupont" />
                     </div>
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
                 <!-- Email Address -->
                 <div class="space-y-xs">
-                    <label class="block font-label-md text-label-md text-on-surface-variant" for="email">Adresse email</label>
+                    <label class="block font-label-md text-label-md text-on-surface-variant" for="email">Adresse email <span class="text-red-500 font-bold">*</span></label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
                         <input class="w-full pl-xl pr-md py-3 rounded-lg border border-outline-variant bg-surface-container-low font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none text-on-surface" 
-                               id="email" type="email" name="email" :value="old('email')" required autocomplete="username" placeholder="jean.dupont@exemple.com" />
+                               id="email" type="email" name="email" :value="old('email')" required autocomplete="username" maxlength="255" placeholder="jean.dupont@exemple.com" />
                     </div>
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
                 <!-- Password -->
                 <div class="space-y-xs">
-                    <label class="block font-label-md text-label-md text-on-surface-variant" for="password">Mot de passe</label>
+                    <label class="block font-label-md text-label-md text-on-surface-variant" for="password">Mot de passe <span class="text-red-500 font-bold">*</span></label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
                         <input class="w-full pl-xl pr-md py-3 rounded-lg border border-outline-variant bg-surface-container-low font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none text-on-surface" 
-                               id="password" type="password" name="password" required autocomplete="new-password" placeholder="••••••••" />
+                               id="password" type="password" name="password" required autocomplete="new-password" minlength="8" maxlength="100" placeholder="••••••••" />
                     </div>
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
 
                 <!-- Confirm Password -->
                 <div class="space-y-xs">
-                    <label class="block font-label-md text-label-md text-on-surface-variant" for="password_confirmation">Confirmer le mot de passe</label>
+                    <label class="block font-label-md text-label-md text-on-surface-variant" for="password_confirmation">Confirmer le mot de passe <span class="text-red-500 font-bold">*</span></label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
                         <input class="w-full pl-xl pr-md py-3 rounded-lg border border-outline-variant bg-surface-container-low font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none text-on-surface" 
-                               id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="••••••••" />
+                               id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" minlength="8" maxlength="100" placeholder="••••••••" />
                     </div>
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
