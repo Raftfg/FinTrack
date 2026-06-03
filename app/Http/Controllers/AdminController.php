@@ -47,8 +47,11 @@ class AdminController extends Controller
             $growthData[] = 10 + $count + ($i * 15); 
         }
 
-        // Logs critiques récents (mocks réalistes)
-        $criticalLogs = $this->getMockLogs('critical', 3);
+        // Logs critiques récents (réels via Monolog, fallback sur les mocks si vide)
+        $realCriticalLogs = array_filter($this->getMonologLogs(), function($log) {
+            return $log['severity'] === 'Critical';
+        });
+        $criticalLogs = count($realCriticalLogs) > 0 ? array_slice($realCriticalLogs, 0, 3) : $this->getMockLogs('critical', 3);
 
         return view('admin.dashboard', compact(
             'totalUsers',
@@ -233,7 +236,11 @@ class AdminController extends Controller
         $search = $request->get('search');
         $severity = $request->get('severity');
 
-        $allLogs = $this->getMockLogs('all');
+        // Charger les logs réels via Monolog, et s'ils sont vides, utiliser les mocks
+        $allLogs = $this->getMonologLogs();
+        if (empty($allLogs)) {
+            $allLogs = $this->getMockLogs('all');
+        }
 
         // Filtrer les logs
         $logs = array_filter($allLogs, function($log) use ($search, $severity) {
@@ -257,6 +264,82 @@ class AdminController extends Controller
         $logs = array_slice($logs, 0, 10);
 
         return view('admin.logs', compact('logs'));
+    }
+
+    /**
+     * Helper to read and parse Laravel Monolog logs.
+     */
+    private function getMonologLogs($limit = 100)
+    {
+        $logPath = storage_path('logs/laravel.log');
+        if (!file_exists($logPath)) {
+            return [];
+        }
+
+        $lines = file($logPath);
+        $lines = array_slice($lines, -1000); // 1000 dernières lignes pour performance
+        
+        $parsedLogs = [];
+        $currentLog = null;
+
+        // Expression régulière pour parser le format Monolog de Laravel :
+        // [2026-06-03 22:51:59] local.INFO: Message...
+        $pattern = '/^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\] (\w+)\.(\w+): (.*)$/';
+
+        foreach ($lines as $line) {
+            if (preg_match($pattern, trim($line), $matches)) {
+                if ($currentLog) {
+                    $parsedLogs[] = $currentLog;
+                }
+                
+                $timestamp = $matches[1];
+                $env = $matches[2];
+                $level = strtoupper($matches[3]);
+                $message = $matches[4];
+
+                $severity = 'Informational';
+                $icon = 'info';
+                $color = 'primary';
+
+                if (in_array($level, ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR'])) {
+                    $severity = 'Critical';
+                    $icon = 'error';
+                    $color = 'error';
+                } elseif ($level === 'WARNING') {
+                    $severity = 'Warning';
+                    $icon = 'warning';
+                    $color = 'tertiary';
+                } elseif ($level === 'DEBUG') {
+                    $severity = 'Debug';
+                    $icon = 'bug_report';
+                    $color = 'slate';
+                }
+
+                $currentLog = [
+                    'timestamp' => $timestamp,
+                    'event_type' => $level . ' Log',
+                    'icon' => $icon,
+                    'user' => 'System (' . $env . ')',
+                    'user_initials' => 'SY',
+                    'severity' => $severity,
+                    'description' => substr($message, 0, 250),
+                    'color' => $color
+                ];
+            } else {
+                if ($currentLog) {
+                    $currentLog['description'] .= ' ' . trim($line);
+                    if (strlen($currentLog['description']) > 1000) {
+                        $currentLog['description'] = substr($currentLog['description'], 0, 1000) . '...';
+                    }
+                }
+            }
+        }
+
+        if ($currentLog) {
+            $parsedLogs[] = $currentLog;
+        }
+
+        return array_reverse($parsedLogs);
     }
 
     /**
