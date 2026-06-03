@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "primary": "#00288e",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb3ad",
+                    "tertiary-fixed": "#ffdad7",
+                    "on-tertiary-fixed": "#410004",
+                    "outline-variant": "#c4c5d5",
+                    "on-surface": "#0b1c30",
+                    "on-primary-fixed": "#001453",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-fixed-variant": "#173bab",
+                    "surface-container-high": "#dce9ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#9b0015",
+                    "surface-bright": "#f8f9ff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-secondary": "#ffffff",
+                    "background": "#f8f9ff",
+                    "tertiary": "#70000c",
+                    "on-tertiary-fixed-variant": "#930013",
+                    "on-error": "#ffffff",
+                    "primary-container": "#1e40af",
+                    "surface-container": "#e5eeff",
+                    "surface": "#f8f9ff",
+                    "secondary-container": "#6cf8bb",
+                    "secondary": "#006c49",
+                    "on-primary-container": "#a8b8ff",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#444653",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-background": "#0b1c30",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#757684",
+                    "primary-fixed": "#dde1ff",
+                    "inverse-surface": "#213145",
+                    "surface-container-low": "#eff4ff",
+                    "on-tertiary-container": "#ffa39c",
+                    "surface-variant": "#d3e4fe",
+                    "surface-tint": "#3755c3",
+                    "surface-dim": "#cbdbf5",
+                    "secondary-fixed": "#6ffbbe",
+                    "primary-fixed-dim": "#b8c4ff",
+                    "on-secondary-container": "#00714d",
+                    "inverse-primary": "#b8c4ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "margin-desktop": "48px",
+                    "base": "8px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .loan-card-hover:hover {
+            transform: translateY(-2px);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-surface shadow-sm docked full-width top-0 flex justify-between items-center px-margin-mobile h-16 w-full z-50 fixed">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a smiling young businessman in a crisp white shirt, captured with soft natural studio lighting against a clean light blue background. The overall aesthetic is polished, modern, and minimalist, emphasizing trust and clarity in a corporate financial setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA48vbHIl_Fyx9vFjFv3aScH5UWA2ywqZisXcuOnbNC_aQd_HlG2BarVbM0cTBfrA_ujkvagxI_Hm1ow9QXZle186XBrV69F0G7SOvqPAmWNgld7mZ6DrH47jOAd2HPSvhfsuAZX-uk3fGti-K5cQAXnhNHiMc-4vdzCfCRDtlwV7i4Keh9-fRXnRAuUTseli1xIq7a7ZMTdFXFZu64ff-zgtY7RkqFDcHVzA6WJ4GYYiDXTEfGH96errVsRdKwRWR7i8_yZ371jkbp"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Financely</h1>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim p-2 hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors active:scale-95 duration-100 rounded-full" data-icon="notifications">
+            notifications
+        </button>
+</header>
+<main class="pt-20 px-margin-mobile max-w-5xl mx-auto">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-8 mt-4">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary">Gestion des Prêts</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Suivez vos remboursements et aides en cours.</p>
+</div>
+<button class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-label-md text-label-md">Nouveau Prêt</span>
+</button>
+</div>
+<!-- Loan Summary Overview (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-xl">
+<div class="bg-primary-container p-lg rounded-xl shadow-sm border border-outline-variant/20">
+<p class="text-on-primary-container/80 font-label-sm text-label-sm mb-2 uppercase tracking-wider">Total dû</p>
+<p class="text-on-primary-container font-headline-lg-mobile text-headline-lg-mobile">12,450.00 €</p>
+</div>
+<div class="bg-surface-container-high p-lg rounded-xl shadow-sm">
+<p class="text-on-surface-variant font-label-sm text-label-sm mb-2 uppercase tracking-wider">Restant à payer</p>
+<p class="text-primary font-headline-lg-mobile text-headline-lg-mobile">4,120.00 €</p>
+</div>
+<div class="bg-secondary-container p-lg rounded-xl shadow-sm">
+<p class="text-on-secondary-container/80 font-label-sm text-label-sm mb-2 uppercase tracking-wider">Taux de remboursement</p>
+<div class="flex items-center gap-3">
+<p class="text-on-secondary-container font-headline-lg-mobile text-headline-lg-mobile">67%</p>
+<div class="flex-1 bg-on-secondary-container/20 h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 67%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Loans List Section -->
+<div class="space-y-md">
+<div class="flex items-center justify-between px-2 mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Personnes &amp; Engagements</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container text-outline"><span class="material-symbols-outlined" data-icon="filter_list">filter_list</span></button>
+<button class="p-2 rounded-full hover:bg-surface-container text-outline"><span class="material-symbols-outlined" data-icon="search">search</span></button>
+</div>
+</div>
+<!-- Loan Item 1: Partiel -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-surface-container flex flex-col md:flex-row md:items-center justify-between gap-4 loan-card-hover">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold">
+                        JD
+                    </div>
+<div>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Jean Dupont</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Prêt personnel - École</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:flex md:items-center gap-x-8 gap-y-2">
+<div class="md:text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Total dû</p>
+<p class="font-body-md text-body-md font-medium">5,000.00 €</p>
+</div>
+<div class="md:text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Restant</p>
+<p class="font-body-md text-body-md font-bold text-primary">1,200.00 €</p>
+</div>
+<div class="col-span-2 md:col-span-1">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary mr-2"></span>
+                            Partiel
+                        </span>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</button>
+</div>
+<!-- Loan Item 2: Non remboursé -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-surface-container flex flex-col md:flex-row md:items-center justify-between gap-4 loan-card-hover">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold">
+                        AL
+                    </div>
+<div>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Alice Lemaire</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Aide urgence loyer</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:flex md:items-center gap-x-8 gap-y-2">
+<div class="md:text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Total dû</p>
+<p class="font-body-md text-body-md font-medium">850.00 €</p>
+</div>
+<div class="md:text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Restant</p>
+<p class="font-body-md text-body-md font-bold text-error">850.00 €</p>
+</div>
+<div class="col-span-2 md:col-span-1">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error mr-2"></span>
+                            Non remboursé
+                        </span>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</button>
+</div>
+<!-- Loan Item 3: Payé -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-surface-container flex flex-col md:flex-row md:items-center justify-between gap-4 loan-card-hover opacity-80">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold">
+                        MB
+                    </div>
+<div>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Marc Bernard</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Prêt voyage</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:flex md:items-center gap-x-8 gap-y-2">
+<div class="md:text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Total dû</p>
+<p class="font-body-md text-body-md font-medium">1,200.00 €</p>
+</div>
+<div class="md:text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Restant</p>
+<p class="font-body-md text-body-md font-bold text-secondary">0.00 €</p>
+</div>
+<div class="col-span-2 md:col-span-1">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary mr-2"></span>
+                            Payé
+                        </span>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</button>
+</div>
+<!-- Loan Item 4: Partiel -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-surface-container flex flex-col md:flex-row md:items-center justify-between gap-4 loan-card-hover">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold">
+                        SR
+                    </div>
+<div>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Sophie Robert</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Avance travaux</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:flex md:items-center gap-x-8 gap-y-2">
+<div class="md:text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Total dû</p>
+<p class="font-body-md text-body-md font-medium">5,400.00 €</p>
+</div>
+<div class="md:text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Restant</p>
+<p class="font-body-md text-body-md font-bold text-primary">2,070.00 €</p>
+</div>
+<div class="col-span-2 md:col-span-1">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary mr-2"></span>
+                            Partiel
+                        </span>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</button>
+</div>
+</div>
+</main>
+<!-- Mobile FAB -->
+<button class="md:hidden fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container dark:bg-inverse-surface shadow-lg docked full-width bottom-0 rounded-t-xl fixed bottom-0 w-full z-50 flex justify-around items-center h-20 pb-2 px-4">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">Transactions</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-sm text-label-sm">Loans</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="flag">flag</span>
+<span class="font-label-sm text-label-sm">Goals</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for loan cards
+        document.querySelectorAll('.loan-card-hover').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.backgroundColor = 'var(--tw-surface-container-high)';
+                setTimeout(() => {
+                    card.style.backgroundColor = '';
+                }, 150);
+            });
+        });
+    </script>
+</body></html>
