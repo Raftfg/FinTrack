@@ -118,7 +118,7 @@
                     </div>
                     <div class="truncate max-w-[120px]">
                         <p class="font-label-sm text-label-sm text-on-surface-variant">{{ now()->hour < 12 ? 'Bonjour' : (now()->hour < 18 ? 'Bon après-midi' : 'Bonsoir') }},</p>
-                        <p class="font-body-md text-body-md font-semibold text-on-surface truncate">{{ auth()->user()?->name ?? 'Alex' }}</p>
+                        <p class="font-body-md text-body-md font-semibold text-on-surface truncate">{{ auth()->user()?->name ?? 'Raf' }}</p>
                     </div>
                 </div>
                 
@@ -216,7 +216,7 @@
 
     <!-- Add Transaction Modal -->
     <div x-show="showTransactionModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" x-transition style="display: none;">
-        <div @click.away="showTransactionModal = false" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20 max-h-[90vh] overflow-y-auto">
+        <div @click.away="showTransactionModal = false" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20" style="max-height: 85vh; overflow-y: auto;">
             <h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-2">Nouvelle Transaction</h3>
             <form method="POST" action="{{ route('transactions.store') }}" class="space-y-4">
                 @csrf
@@ -260,7 +260,7 @@
 
     <!-- Add Loan Modal -->
     <div x-show="showLoanModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" x-transition style="display: none;">
-        <div @click.away="showLoanModal = false" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20 max-h-[90vh] overflow-y-auto">
+        <div @click.away="showLoanModal = false" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20" style="max-height: 85vh; overflow-y: auto;">
             <h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-2">Nouveau Prêt</h3>
             <form method="POST" action="{{ route('loans.store') }}" class="space-y-4">
                 @csrf
@@ -321,7 +321,7 @@
 
     <!-- Add Goal Modal -->
     <div x-show="showGoalModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" x-transition style="display: none;">
-        <div @click.away="showGoalModal = false" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20 max-h-[90vh] overflow-y-auto">
+        <div @click.away="showGoalModal = false" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20" style="max-height: 85vh; overflow-y: auto;">
             <h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-2">Nouvel Objectif</h3>
             <form method="POST" action="{{ route('goals.store') }}" class="space-y-4">
                 @csrf
@@ -360,7 +360,7 @@
 
     <!-- Goal Detail Modal -->
     <div x-show="showGoalDetailModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" x-transition style="display: none;">
-        <div @click.away="showGoalDetailModal = false; selectedGoal = null" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20 max-h-[90vh] overflow-y-auto" x-data="{
+        <div @click.away="showGoalDetailModal = false; selectedGoal = null" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20" style="max-height: 85vh; overflow-y: auto;" x-data="{
             getProgressPct() {
                 if (!selectedGoal || !selectedGoal.montant_cible) return 0;
                 return Math.min(100, Math.round((selectedGoal.montant_actuel / selectedGoal.montant_cible) * 100));
@@ -449,7 +449,7 @@
 
     <!-- Loan Edit / Repayment Modal -->
     <div x-show="showLoanEditModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" x-transition style="display: none;">
-        <div @click.away="showLoanEditModal = false; selectedLoan = null" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20 max-h-[90vh] overflow-y-auto">
+        <div @click.away="showLoanEditModal = false; selectedLoan = null" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20" style="max-height: 85vh; overflow-y: auto;">
             <div class="flex justify-between items-center mb-2">
                 <h3 class="font-headline-sm text-headline-sm font-bold text-primary" x-text="selectedLoan ? 'Prêt — ' + selectedLoan.personne : 'Mettre à jour'"></h3>
                 <button @click="showLoanEditModal = false; selectedLoan = null" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container">
@@ -531,7 +531,7 @@
 
     <!-- Notifications Modal -->
     <div x-show="showNotifications" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" x-transition style="display: none;">
-        <div @click.away="showNotifications = false" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20 max-h-[90vh] overflow-y-auto">
+        <div @click.away="showNotifications = false" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20" style="max-height: 85vh; overflow-y: auto;">
             <div class="flex justify-between items-center mb-2">
                 <h3 class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-2">
                     <span class="material-symbols-outlined text-[24px]">notifications</span>
@@ -587,7 +587,7 @@
 
     <!-- Edit Transaction Modal -->
     <div x-show="showTransactionEditModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" x-transition style="display: none;">
-        <div @click.away="showTransactionEditModal = false; selectedTransaction = null" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20 max-h-[90vh] overflow-y-auto">
+        <div @click.away="showTransactionEditModal = false; selectedTransaction = null" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20" style="max-height: 85vh; overflow-y: auto;">
             <h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-2">Modifier la Transaction</h3>
             <template x-if="selectedTransaction">
                 <form :action="'/transactions/' + selectedTransaction.id" method="POST" class="space-y-4">
@@ -634,7 +634,7 @@
 
     <!-- Edit Goal Modal -->
     <div x-show="showGoalEditModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" x-transition style="display: none;">
-        <div @click.away="showGoalEditModal = false; selectedGoal = null" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20 max-h-[90vh] overflow-y-auto">
+        <div @click.away="showGoalEditModal = false; selectedGoal = null" class="bg-surface-container-lowest text-on-surface w-full max-w-md rounded-2xl shadow-2xl p-lg flex flex-col gap-md relative border border-outline-variant/20" style="max-height: 85vh; overflow-y: auto;">
             <h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-2">Modifier l'Objectif</h3>
             <template x-if="selectedGoal">
                 <form :action="'/goals/' + selectedGoal.id" method="POST" class="space-y-4">
