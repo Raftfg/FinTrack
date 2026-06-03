@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html class="light" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true', showTransactionModal: false, showLoanModal: false, showGoalModal: false, selectedGoal: null, showGoalDetailModal: false, showLoanEditModal: false, selectedLoan: null, showGoalAddSavings: false, savingsAmount: '', showTransactionEditModal: false, selectedTransaction: null, showGoalEditModal: false, showNotifications: false }" :class="{ 'dark': darkMode }">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ config('app.name', 'Financely') }} - @yield('title')</title>
+    
+    <!-- Dark Mode Flash Prevention Script -->
+    <script>
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     
     <!-- Scripts / Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -15,6 +26,9 @@
             background-color: #f8f9ff;
             font-family: 'Inter', sans-serif;
             min-height: max(884px, 100dvh);
+        }
+        .dark body {
+            background-color: #0b1c30;
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -28,7 +42,7 @@
         }
     </style>
 </head>
-<body class="bg-background text-on-background min-h-screen" x-data="{ showTransactionModal: false, showLoanModal: false, showGoalModal: false, selectedGoal: null, showGoalDetailModal: false, showLoanEditModal: false, selectedLoan: null, showGoalAddSavings: false, savingsAmount: '', showTransactionEditModal: false, selectedTransaction: null, showGoalEditModal: false, showNotifications: false }">
+<body class="bg-background text-on-background min-h-screen transition-colors duration-200">
 
     <!-- Sidebar for desktop -->
     <aside class="hidden md:flex md:flex-col md:w-64 md:fixed md:inset-y-0 md:left-0 bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant/30 z-50">
@@ -38,12 +52,17 @@
                 <span class="material-symbols-outlined text-[28px]">account_balance_wallet</span>
                 FinTrack
             </h1>
-            <button @click="showNotifications = true" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100" title="Notifications">
-                <span class="material-symbols-outlined text-primary text-[22px]">notifications</span>
-                @if(isset($unreadNotificationsCount) && $unreadNotificationsCount > 0)
-                <span class="absolute -top-1 -right-1 w-4 h-4 bg-error text-on-error rounded-full text-[9px] font-bold flex items-center justify-center">{{ $unreadNotificationsCount }}</span>
-                @endif
-            </button>
+            <div class="flex items-center gap-1.5">
+                <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100" title="Mode Sombre/Clair">
+                    <span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-[22px]" x-text="darkMode ? 'light_mode' : 'dark_mode'"></span>
+                </button>
+                <button @click="showNotifications = true" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100" title="Notifications">
+                    <span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-[22px]">notifications</span>
+                    @if(isset($unreadNotificationsCount) && $unreadNotificationsCount > 0)
+                    <span class="absolute -top-1 -right-1 w-4 h-4 bg-error text-on-error rounded-full text-[9px] font-bold flex items-center justify-center">{{ $unreadNotificationsCount }}</span>
+                    @endif
+                </button>
+            </div>
         </div>
         
         <!-- Action Button for Desktop -->
@@ -149,6 +168,9 @@
             </div>
             
             <div class="flex items-center gap-2">
+                <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors active:scale-95 duration-100" title="Mode Sombre/Clair">
+                    <span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" x-text="darkMode ? 'light_mode' : 'dark_mode'"></span>
+                </button>
                 <button @click="showNotifications = true" class="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors active:scale-95 duration-100" title="Notifications">
                     <span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">notifications</span>
                     @if(isset($unreadNotificationsCount) && $unreadNotificationsCount > 0)

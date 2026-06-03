@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" :class="{ 'dark': darkMode }">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'FinTrack') }} - Authentification</title>
+
+        <!-- Dark Mode Flash Prevention Script -->
+        <script>
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+            } else {
+                document.documentElement.classList.add('light');
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
 
         <!-- Fonts / Icons -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -19,6 +30,9 @@
                 background: radial-gradient(circle at 100% 0%, #e5eeff 0%, #f8f9ff 50%, #eff4ff 100%);
                 font-family: 'Inter', sans-serif;
                 min-height: 100vh;
+            }
+            .dark body {
+                background: radial-gradient(circle at 100% 0%, #0c1a30 0%, #070e1b 50%, #050a14 100%);
             }
         </style>
     </head>
