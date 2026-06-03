@@ -21,9 +21,9 @@ class LoanController extends Controller
             ->orderByDesc('date_pret')
             ->get();
 
-        $totalDu      = $loans->sum('montant_initial');
-        $totalRestant = $loans->sum(fn($l) => $l->montant_initial - $l->montant_rembourse);
-        $tauxGlobal   = $totalDu > 0
+        $totalDu = $loans->sum('montant_initial');
+        $totalRestant = $loans->sum(fn ($l) => $l->montant_initial - $l->montant_rembourse);
+        $tauxGlobal = $totalDu > 0
             ? (int) (($loans->sum('montant_rembourse') / $totalDu) * 100)
             : 0;
 
@@ -57,15 +57,15 @@ class LoanController extends Controller
         $loan = Loan::where('user_id', $request->user()->id)->findOrFail($id);
 
         $validated = $request->validate([
-            'personne'          => 'nullable|string|max:255',
-            'email'             => 'nullable|email|max:255',
-            'telephone'         => 'nullable|string|max:30',
-            'montant_initial'   => 'nullable|numeric|min:0.01',
+            'personne' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'telephone' => 'nullable|string|max:30',
+            'montant_initial' => 'nullable|numeric|min:0.01',
             'montant_rembourse' => 'nullable|numeric|min:0',
             'ajout_remboursement' => 'nullable|numeric|min:0',
-            'statut'            => 'nullable|string|in:non_rembourse,partiel,rembourse',
-            'date_echeance'     => 'nullable|date',
-            'note'              => 'nullable|string|max:255',
+            'statut' => 'nullable|string|in:non_rembourse,partiel,rembourse',
+            'date_echeance' => 'nullable|date',
+            'note' => 'nullable|string|max:255',
         ]);
 
         // Add to reimbursed amount incrementally
@@ -78,18 +78,32 @@ class LoanController extends Controller
             $loan->montant_rembourse = min($loan->montant_initial, $validated['montant_rembourse']);
         }
 
-        if (isset($validated['personne']))        $loan->personne        = $validated['personne'];
-        if (array_key_exists('email', $validated)) $loan->email          = $validated['email'];
-        if (array_key_exists('telephone', $validated)) $loan->telephone  = $validated['telephone'];
-        if (isset($validated['montant_initial'])) $loan->montant_initial = $validated['montant_initial'];
-        if (isset($validated['statut']))          $loan->statut          = $validated['statut'];
-        if (array_key_exists('date_echeance', $validated)) $loan->date_echeance = $validated['date_echeance'];
-        if (array_key_exists('note', $validated)) $loan->note = $validated['note'];
+        if (isset($validated['personne'])) {
+            $loan->personne = $validated['personne'];
+        }
+        if (array_key_exists('email', $validated)) {
+            $loan->email = $validated['email'];
+        }
+        if (array_key_exists('telephone', $validated)) {
+            $loan->telephone = $validated['telephone'];
+        }
+        if (isset($validated['montant_initial'])) {
+            $loan->montant_initial = $validated['montant_initial'];
+        }
+        if (isset($validated['statut'])) {
+            $loan->statut = $validated['statut'];
+        }
+        if (array_key_exists('date_echeance', $validated)) {
+            $loan->date_echeance = $validated['date_echeance'];
+        }
+        if (array_key_exists('note', $validated)) {
+            $loan->note = $validated['note'];
+        }
 
         // Auto-update status based on repayment
         if ($loan->montant_rembourse >= $loan->montant_initial) {
             $loan->statut = LoanStatus::REMBOURSE;
-        } elseif ($loan->montant_rembourse > 0 && !isset($validated['statut'])) {
+        } elseif ($loan->montant_rembourse > 0 && ! isset($validated['statut'])) {
             $loan->statut = LoanStatus::PARTIEL;
         }
 
@@ -101,7 +115,7 @@ class LoanController extends Controller
     public function destroy(Request $request, int $id)
     {
         Loan::where('user_id', $request->user()->id)->findOrFail($id)->delete();
+
         return back()->with('success', 'Prêt supprimé.');
     }
 }
-

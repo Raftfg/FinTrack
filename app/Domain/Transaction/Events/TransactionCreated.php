@@ -6,7 +6,8 @@ use App\Domain\Transaction\Models\Transaction;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TransactionCreated {
+class TransactionCreated
+{
     use Dispatchable, SerializesModels;
 
     public function __construct(

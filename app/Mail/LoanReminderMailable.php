@@ -2,8 +2,8 @@
 
 namespace App\Mail;
 
+use App\Domain\Loan\Models\Loan;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
@@ -14,12 +14,12 @@ class LoanReminderMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public \App\Domain\Loan\Models\Loan $loan;
+    public Loan $loan;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(\App\Domain\Loan\Models\Loan $loan)
+    public function __construct(Loan $loan)
     {
         $this->loan = $loan;
     }

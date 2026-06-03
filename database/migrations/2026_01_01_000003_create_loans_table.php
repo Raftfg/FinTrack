@@ -14,8 +14,8 @@ return new class extends Migration
             $table->string('personne');
             $table->decimal('montant_initial', 15, 2);
             $table->decimal('montant_rembourse', 15, 2)->default(0);
-            $table->enum('statut', ['non_rembourse','partiel','rembourse'])
-                  ->default('non_rembourse');
+            $table->enum('statut', ['non_rembourse', 'partiel', 'rembourse'])
+                ->default('non_rembourse');
             $table->date('date_pret');
             $table->date('date_echeance')->nullable();
             $table->text('note')->nullable();

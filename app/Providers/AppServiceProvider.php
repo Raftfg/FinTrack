@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Infrastructure\Repositories\Contracts\TransactionRepositoryInterface;
+use App\Infrastructure\Repositories\TransactionRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -12,8 +14,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            \App\Infrastructure\Repositories\Contracts\TransactionRepositoryInterface::class,
-            \App\Infrastructure\Repositories\TransactionRepository::class
+            TransactionRepositoryInterface::class,
+            TransactionRepository::class
         );
     }
 

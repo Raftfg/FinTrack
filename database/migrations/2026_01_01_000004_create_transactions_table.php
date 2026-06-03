@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->enum('type', [
-                'revenu','depense','epargne','pret','remboursement'
+                'revenu', 'depense', 'epargne', 'pret', 'remboursement',
             ]);
             $table->decimal('montant', 15, 2);
             $table->string('categorie', 50);

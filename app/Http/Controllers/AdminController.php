@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Domain\Transaction\Models\Transaction;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -19,11 +18,11 @@ class AdminController extends Controller
     {
         $totalUsers = User::count();
         $activeToday = User::where('status', 'active')->count();
-        
+
         // Supposer que le volume est calculé sur les dernières 24h
         $volume24h = Transaction::where('created_at', '>=', now()->subDay())->sum('montant');
         $transactionCount = Transaction::where('created_at', '>=', now()->subDay())->count();
-        
+
         if ($volume24h == 0) {
             // Mocks réalistes si pas de transactions récentes
             $volume24h = 42800000;
@@ -40,15 +39,15 @@ class AdminController extends Controller
         for ($i = 6; $i >= 0; $i--) {
             $date = Carbon::now()->subDays($i);
             $growthLabels[] = $date->translatedFormat('D');
-            
+
             // Compter les vrais utilisateurs créés ce jour là ou utiliser un mock
             $count = User::whereDate('created_at', $date->toDateString())->count();
             // Ajouter un bruit de fond pour rendre le graphique vivant dans un environnement de test
-            $growthData[] = 10 + $count + ($i * 15); 
+            $growthData[] = 10 + $count + ($i * 15);
         }
 
         // Logs critiques récents (réels via Monolog, fallback sur les mocks si vide)
-        $realCriticalLogs = array_filter($this->getMonologLogs(), function($log) {
+        $realCriticalLogs = array_filter($this->getMonologLogs(), function ($log) {
             return $log['severity'] === 'Critical';
         });
         $criticalLogs = count($realCriticalLogs) > 0 ? array_slice($realCriticalLogs, 0, 3) : $this->getMockLogs('critical', 3);
@@ -75,10 +74,10 @@ class AdminController extends Controller
 
         // Search filter
         if ($search = $request->get('search')) {
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('id', $search);
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('id', $search);
             });
         }
 
@@ -187,7 +186,7 @@ class AdminController extends Controller
             'password_expiry' => 90,
             'daily_transaction_limit' => '10,000.00',
             'default_currency' => 'USD',
-            'enabled_currencies' => ['USD', 'EUR', 'GBP']
+            'enabled_currencies' => ['USD', 'EUR', 'GBP'],
         ]);
 
         return view('admin.settings', compact('settings'));
@@ -216,11 +215,11 @@ class AdminController extends Controller
             'platform_description' => $validated['platform_description'],
             'mandatory_2fa' => $request->has('mandatory_2fa'),
             'session_timeout' => $request->has('session_timeout'),
-            'min_password_length' => (int)$validated['min_password_length'],
-            'password_expiry' => (int)$validated['password_expiry'],
+            'min_password_length' => (int) $validated['min_password_length'],
+            'password_expiry' => (int) $validated['password_expiry'],
             'daily_transaction_limit' => $validated['daily_transaction_limit'],
             'default_currency' => $validated['default_currency'],
-            'enabled_currencies' => $request->get('enabled_currencies', ['USD', 'EUR', 'GBP'])
+            'enabled_currencies' => $request->get('enabled_currencies', ['USD', 'EUR', 'GBP']),
         ];
 
         Cache::put('admin_settings', $settings);
@@ -243,12 +242,12 @@ class AdminController extends Controller
         }
 
         // Filtrer les logs
-        $logs = array_filter($allLogs, function($log) use ($search, $severity) {
+        $logs = array_filter($allLogs, function ($log) use ($search, $severity) {
             $matchSearch = true;
             $matchSeverity = true;
 
             if ($search) {
-                $matchSearch = (stripos($log['description'], $search) !== false) || 
+                $matchSearch = (stripos($log['description'], $search) !== false) ||
                               (stripos($log['event_type'], $search) !== false) ||
                               (stripos($log['user'], $search) !== false);
             }
@@ -272,13 +271,13 @@ class AdminController extends Controller
     private function getMonologLogs($limit = 100)
     {
         $logPath = storage_path('logs/laravel.log');
-        if (!file_exists($logPath)) {
+        if (! file_exists($logPath)) {
             return [];
         }
 
         $lines = file($logPath);
         $lines = array_slice($lines, -1000); // 1000 dernières lignes pour performance
-        
+
         $parsedLogs = [];
         $currentLog = null;
 
@@ -291,7 +290,7 @@ class AdminController extends Controller
                 if ($currentLog) {
                     $parsedLogs[] = $currentLog;
                 }
-                
+
                 $timestamp = $matches[1];
                 $env = $matches[2];
                 $level = strtoupper($matches[3]);
@@ -317,19 +316,19 @@ class AdminController extends Controller
 
                 $currentLog = [
                     'timestamp' => $timestamp,
-                    'event_type' => $level . ' Log',
+                    'event_type' => $level.' Log',
                     'icon' => $icon,
-                    'user' => 'System (' . $env . ')',
+                    'user' => 'System ('.$env.')',
                     'user_initials' => 'SY',
                     'severity' => $severity,
                     'description' => substr($message, 0, 250),
-                    'color' => $color
+                    'color' => $color,
                 ];
             } else {
                 if ($currentLog) {
-                    $currentLog['description'] .= ' ' . trim($line);
+                    $currentLog['description'] .= ' '.trim($line);
                     if (strlen($currentLog['description']) > 1000) {
-                        $currentLog['description'] = substr($currentLog['description'], 0, 1000) . '...';
+                        $currentLog['description'] = substr($currentLog['description'], 0, 1000).'...';
                     }
                 }
             }
@@ -356,7 +355,7 @@ class AdminController extends Controller
                 'user_initials' => 'SY',
                 'severity' => 'Critical',
                 'description' => 'Multiple failed login attempts from unknown IP: 192.168.1.104',
-                'color' => 'error'
+                'color' => 'error',
             ],
             [
                 'timestamp' => Carbon::now()->subMinutes(15)->toDateTimeString(),
@@ -366,7 +365,7 @@ class AdminController extends Controller
                 'user_initials' => 'SC',
                 'severity' => 'Informational',
                 'description' => 'Single outbound transfer exceeding $500,000 threshold for corp_acct_44.',
-                'color' => 'primary'
+                'color' => 'primary',
             ],
             [
                 'timestamp' => Carbon::now()->subMinutes(35)->toDateTimeString(),
@@ -376,7 +375,7 @@ class AdminController extends Controller
                 'user_initials' => 'MO',
                 'severity' => 'Warning',
                 'description' => 'Response time on /api/transactions endpoint exceeded 1500ms.',
-                'color' => 'tertiary'
+                'color' => 'tertiary',
             ],
             [
                 'timestamp' => Carbon::now()->subHour()->toDateTimeString(),
@@ -386,7 +385,7 @@ class AdminController extends Controller
                 'user_initials' => 'DB',
                 'severity' => 'Success',
                 'description' => 'Daily compressed backup of postgres_main cluster completed and stored.',
-                'color' => 'primary'
+                'color' => 'primary',
             ],
             [
                 'timestamp' => Carbon::now()->subHours(2)->toDateTimeString(),
@@ -396,7 +395,7 @@ class AdminController extends Controller
                 'user_initials' => 'JW',
                 'severity' => 'Informational',
                 'description' => 'Production write access token created for integration client.',
-                'color' => 'primary'
+                'color' => 'primary',
             ],
             [
                 'timestamp' => Carbon::now()->subHours(3)->toDateTimeString(),
@@ -406,7 +405,7 @@ class AdminController extends Controller
                 'user_initials' => 'DB',
                 'severity' => 'Critical',
                 'description' => 'Database replication lag exceeded 300 seconds. Recovery initiated.',
-                'color' => 'tertiary'
+                'color' => 'tertiary',
             ],
             [
                 'timestamp' => Carbon::now()->subHours(5)->toDateTimeString(),
@@ -416,12 +415,12 @@ class AdminController extends Controller
                 'user_initials' => 'AR',
                 'severity' => 'Warning',
                 'description' => 'Daily transaction limit updated from 5,000 to 10,000 USD.',
-                'color' => 'tertiary'
-            ]
+                'color' => 'tertiary',
+            ],
         ];
 
         if ($type === 'critical') {
-            return array_filter($logs, function($l) {
+            return array_filter($logs, function ($l) {
                 return $l['severity'] === 'Critical';
             });
         }

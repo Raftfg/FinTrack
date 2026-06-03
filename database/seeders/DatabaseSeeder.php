@@ -9,9 +9,9 @@ use App\Domain\Loan\Models\Loan;
 use App\Domain\Transaction\Enums\TransactionType;
 use App\Domain\Transaction\Models\Transaction;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -131,17 +131,17 @@ class DatabaseSeeder extends Seeder
             // Revenus
             ['type' => TransactionType::REVENU, 'montant' => 3200.00, 'categorie' => 'Salaire', 'date_transaction' => Carbon::now()->startOfMonth()->addDays(2), 'note' => 'Virement Salaire'],
             ['type' => TransactionType::REVENU, 'montant' => 150.00, 'categorie' => 'Vente', 'date_transaction' => Carbon::now()->subDays(15), 'note' => 'Vente Leboncoin'],
-            
+
             // Dépenses
             ['type' => TransactionType::DEPENSE, 'montant' => 850.00, 'categorie' => 'Logement', 'date_transaction' => Carbon::now()->startOfMonth()->addDays(4), 'note' => 'Loyer'],
             ['type' => TransactionType::DEPENSE, 'montant' => 120.50, 'categorie' => 'Alimentation', 'date_transaction' => Carbon::now()->subDays(2), 'note' => 'Courses Supermarché'],
             ['type' => TransactionType::DEPENSE, 'montant' => 45.00, 'categorie' => 'Loisirs', 'date_transaction' => Carbon::now()->subDays(5), 'note' => 'Restaurant'],
             ['type' => TransactionType::DEPENSE, 'montant' => 89.99, 'categorie' => 'Électronique', 'date_transaction' => Carbon::now(), 'note' => 'Achat Amazon'],
             ['type' => TransactionType::DEPENSE, 'montant' => 60.00, 'categorie' => 'Transport', 'date_transaction' => Carbon::now()->subDays(10), 'note' => 'Plein essence'],
-            
+
             // Épargne
             ['type' => TransactionType::EPARGNE, 'montant' => 500.00, 'categorie' => 'Épargne', 'date_transaction' => Carbon::now()->startOfMonth()->addDays(5), 'note' => 'Virement Livret A'],
-            
+
             // Remboursements de prêts (liés aux prêts existants)
             ['type' => TransactionType::REMBOURSEMENT, 'montant' => 200.00, 'categorie' => 'Remboursement Prêt', 'date_transaction' => Carbon::now()->subDays(20), 'loan_id' => $loan1->id, 'note' => 'Remboursement mensuel Jean'],
         ];

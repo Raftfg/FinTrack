@@ -16,8 +16,8 @@ class GoalController extends Controller
             ->orderBy('date_cible')
             ->get();
 
-        $totalCible   = $goals->sum('montant_cible');
-        $totalActuel  = $goals->sum('montant_actuel');
+        $totalCible = $goals->sum('montant_cible');
+        $totalActuel = $goals->sum('montant_actuel');
         $progressionGlobale = $totalCible > 0
             ? number_format(($totalActuel / $totalCible) * 100, 1)
             : 0;
@@ -49,12 +49,12 @@ class GoalController extends Controller
         $goal = Goal::where('user_id', $request->user()->id)->findOrFail($id);
 
         $validated = $request->validate([
-            'montant_actuel'  => 'nullable|numeric|min:0',
-            'nom'             => 'nullable|string|max:255',
-            'description'     => 'nullable|string|max:255',
-            'montant_cible'   => 'nullable|numeric|min:0.01',
-            'date_cible'      => 'nullable|date',
-            'ajout_epargne'   => 'nullable|numeric|min:0',
+            'montant_actuel' => 'nullable|numeric|min:0',
+            'nom' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'montant_cible' => 'nullable|numeric|min:0.01',
+            'date_cible' => 'nullable|date',
+            'ajout_epargne' => 'nullable|numeric|min:0',
         ]);
 
         // If user is adding savings incrementally
@@ -64,10 +64,18 @@ class GoalController extends Controller
             $goal->montant_actuel = $validated['montant_actuel'];
         }
 
-        if (isset($validated['nom']))           $goal->nom           = $validated['nom'];
-        if (isset($validated['description']))   $goal->description   = $validated['description'];
-        if (isset($validated['montant_cible'])) $goal->montant_cible = $validated['montant_cible'];
-        if (array_key_exists('date_cible', $validated)) $goal->date_cible = $validated['date_cible'];
+        if (isset($validated['nom'])) {
+            $goal->nom = $validated['nom'];
+        }
+        if (isset($validated['description'])) {
+            $goal->description = $validated['description'];
+        }
+        if (isset($validated['montant_cible'])) {
+            $goal->montant_cible = $validated['montant_cible'];
+        }
+        if (array_key_exists('date_cible', $validated)) {
+            $goal->date_cible = $validated['date_cible'];
+        }
 
         $goal->atteint = $goal->montant_actuel >= $goal->montant_cible;
         $goal->save();
@@ -78,7 +86,7 @@ class GoalController extends Controller
     public function destroy(Request $request, int $id)
     {
         Goal::where('user_id', $request->user()->id)->findOrFail($id)->delete();
+
         return back()->with('success', 'Objectif supprimé.');
     }
 }
-

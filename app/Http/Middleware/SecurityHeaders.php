@@ -11,7 +11,7 @@ class SecurityHeaders
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -22,7 +22,7 @@ class SecurityHeaders
             $response->header('X-Content-Type-Options', 'nosniff');
             $response->header('Referrer-Policy', 'strict-origin-when-cross-origin');
             $response->header('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-            
+
             if (app()->environment('production')) {
                 $response->header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
             }
@@ -31,7 +31,7 @@ class SecurityHeaders
             $response->headers->set('X-Content-Type-Options', 'nosniff');
             $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
             $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-            
+
             if (app()->environment('production')) {
                 $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
             }
