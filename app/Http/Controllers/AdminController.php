@@ -259,6 +259,13 @@ class AdminController extends Controller
             return $matchSearch && $matchSeverity;
         });
 
+        // Si export demandé, exporter tous les logs filtrés
+        if ($request->get('export') === 'json') {
+            return response()->json(array_values($logs), 200, [
+                'Content-Disposition' => 'attachment; filename="system-logs-' . now()->format('Y-m-d') . '.json"',
+            ]);
+        }
+
         // Simuler la pagination des logs (10 max)
         $logs = array_slice($logs, 0, 10);
 

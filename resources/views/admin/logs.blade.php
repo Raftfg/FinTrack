@@ -99,7 +99,7 @@
                 <span class="w-2 h-2 rounded-full bg-[#006c49] dark:bg-[#4edea3] animate-ping"></span>
                 Flux en direct
             </div>
-            <button onclick="alert(JSON.stringify(@json($logs), null, 2))" class="px-4 py-2 bg-[#00288e] text-white rounded-xl text-xs font-semibold hover:bg-[#1e40af] transition-all active:scale-95">Exporter en JSON</button>
+            <a href="{{ route('admin.logs', array_merge(request()->query(), ['export' => 'json'])) }}" class="px-4 py-2 bg-[#00288e] text-white rounded-xl text-xs font-semibold hover:bg-[#1e40af] transition-all active:scale-95">Exporter en JSON</a>
         </div>
     </section>
 
