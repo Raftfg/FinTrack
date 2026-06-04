@@ -109,6 +109,15 @@
                 <span class="font-label-md text-label-md">Transactions</span>
             </a>
             
+            <!-- Budgets -->
+            <a href="{{ route('budgets.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group active:scale-98
+                {{ request()->routeIs('budgets.*') 
+                    ? 'bg-primary text-on-primary shadow-md' 
+                    : 'text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim' }}">
+                <span class="material-symbols-outlined" {!! request()->routeIs('budgets.*') ? 'style="font-variation-settings: \'FILL\' 1;"' : '' !!}>shopping_bag</span>
+                <span class="font-label-md text-label-md">Budgets</span>
+            </a>
+            
             <!-- Loans -->
             <a href="{{ route('loans.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group active:scale-98
                 {{ request()->routeIs('loans.*') 
@@ -203,6 +212,11 @@
             <span class="material-symbols-outlined" {!! request()->routeIs('transactions.*') ? 'style="font-variation-settings: \'FILL\' 1;"' : '' !!}>receipt_long</span>
             <span class="font-label-sm text-label-sm">Transactions</span>
         </a>
+        <!-- Budgets -->
+        <a class="flex flex-col items-center justify-center {{ request()->routeIs('budgets.*') ? 'bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1' : 'text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed' }} active:scale-90 transition-transform" href="{{ route('budgets.index') }}">
+            <span class="material-symbols-outlined" {!! request()->routeIs('budgets.*') ? 'style="font-variation-settings: \'FILL\' 1;"' : '' !!}>shopping_bag</span>
+            <span class="font-label-sm text-label-sm">Budgets</span>
+        </a>
         <!-- Loans -->
         <a class="flex flex-col items-center justify-center {{ request()->routeIs('loans.*') ? 'bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1' : 'text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed' }} active:scale-90 transition-transform" href="{{ route('loans.index') }}">
             <span class="material-symbols-outlined" {!! request()->routeIs('loans.*') ? 'style="font-variation-settings: \'FILL\' 1;"' : '' !!}>account_balance</span>
@@ -258,7 +272,11 @@
                 </div>
                 <div>
                     <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Catégorie <span class="text-red-500 font-bold">*</span></label>
-                    <input type="text" name="categorie" placeholder="ex: Alimentation, Salaire..." maxlength="100" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
+                    <select name="categorie" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        @foreach(config('fintrack.transaction_categories', []) as $cat)
+                            <option value="{{ $cat }}">{{ $cat }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div>
                     <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Date <span class="text-red-500 font-bold">*</span></label>
@@ -631,7 +649,11 @@
                     </div>
                     <div>
                         <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Catégorie <span class="text-red-500 font-bold">*</span></label>
-                        <input type="text" name="categorie" x-model="selectedTransaction.categorie" maxlength="100" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md" required>
+                        <select name="categorie" x-model="selectedTransaction.categorie" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-2 text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" required>
+                            @foreach(config('fintrack.transaction_categories', []) as $cat)
+                                <option value="{{ $cat }}">{{ $cat }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div>
                         <label class="block text-label-md font-label-md mb-xs text-on-surface-variant">Date <span class="text-red-500 font-bold">*</span></label>

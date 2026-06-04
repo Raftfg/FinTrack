@@ -5,7 +5,14 @@ return [
     'currency_symbol' => env('APP_CURRENCY_SYMBOL', 'FCFA'),
     'budget_alert_threshold' => 80, // % avant alerte orange
     'transaction_categories' => [
-        'nourriture', 'transport', 'sante', 'logement',
-        'education', 'aide_sociale', 'epargne', 'loisirs', 'autre',
+        'Alimentation',
+        'Transport',
+        'Santé',
+        'Logement',
+        'Éducation',
+        'Aide Sociale',
+        'Épargne',
+        'Loisirs',
+        'Autre',
     ],
 ];

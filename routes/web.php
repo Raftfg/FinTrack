@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\LoanController;
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('transactions', TransactionController::class)->except(['store', 'update', 'destroy']);
     Route::resource('loans', LoanController::class)->except(['store', 'update', 'destroy']);
     Route::resource('goals', GoalController::class)->except(['store', 'update', 'destroy']);
+    Route::resource('budgets', BudgetController::class)->except(['create', 'show', 'edit']);
 
     // Notifications routes
     Route::patch('/notifications/mark-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
