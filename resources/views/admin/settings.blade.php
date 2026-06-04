@@ -138,17 +138,47 @@
                         </div>
                     </div>
                     
-                    <div class="mt-6">
+                    <div class="mt-6" x-data="{ 
+                        currencies: {{ json_encode($settings['enabled_currencies']) }}, 
+                        showAddInput: false, 
+                        newCurrency: '' 
+                    }">
                         <p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">Devises Actives</p>
-                        <div class="flex flex-wrap gap-2">
-                            @foreach($settings['enabled_currencies'] as $currency)
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <template x-for="(currency, index) in currencies" :key="currency">
                                 <span class="inline-flex items-center gap-1 bg-[#00288e] text-white text-xs px-3.5 py-1.5 rounded-full font-semibold">
-                                    {{ $currency }}
-                                    <input type="hidden" name="enabled_currencies[]" value="{{ $currency }}"/>
-                                    <span class="material-symbols-outlined text-xs cursor-pointer opacity-70 hover:opacity-100">close</span>
+                                    <span x-text="currency"></span>
+                                    <input type="hidden" name="enabled_currencies[]" :value="currency"/>
+                                    <span @click="currencies = currencies.filter(c => c !== currency)" class="material-symbols-outlined text-xs cursor-pointer opacity-70 hover:opacity-100">close</span>
                                 </span>
-                            @endforeach
-                            <button type="button" class="inline-flex items-center gap-1 border border-dashed border-[#00288e] text-[#00288e] dark:border-[#b8c4ff] dark:text-[#b8c4ff] text-xs px-3.5 py-1.5 rounded-full font-semibold hover:bg-[#00288e]/10 transition-colors">
+                            </template>
+                            
+                            <div class="relative" x-show="showAddInput" @click.outside="showAddInput = false">
+                                <div class="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-1">
+                                    <input x-model="newCurrency" @keyup.enter="
+                                        if (newCurrency.trim() !== '') {
+                                            const val = newCurrency.trim().toUpperCase();
+                                            if (!currencies.includes(val) && val.length <= 10) {
+                                                currencies.push(val);
+                                            }
+                                            newCurrency = '';
+                                            showAddInput = false;
+                                        }
+                                    " type="text" class="px-2 py-0.5 bg-transparent border-none text-xs w-20 focus:ring-0 focus:outline-none uppercase" placeholder="EUR..." autofocus />
+                                    <button type="button" @click="
+                                        if (newCurrency.trim() !== '') {
+                                            const val = newCurrency.trim().toUpperCase();
+                                            if (!currencies.includes(val) && val.length <= 10) {
+                                                currencies.push(val);
+                                            }
+                                            newCurrency = '';
+                                            showAddInput = false;
+                                        }
+                                    " class="material-symbols-outlined text-xs text-[#006c49] hover:scale-115 transition-transform">check</button>
+                                </div>
+                            </div>
+
+                            <button type="button" x-show="!showAddInput" @click="showAddInput = true" class="inline-flex items-center gap-1 border border-dashed border-[#00288e] text-[#00288e] dark:border-[#b8c4ff] dark:text-[#b8c4ff] text-xs px-3.5 py-1.5 rounded-full font-semibold hover:bg-[#00288e]/10 transition-colors">
                                 + Ajouter Devises
                             </button>
                         </div>
