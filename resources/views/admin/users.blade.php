@@ -2,7 +2,9 @@
     <div x-data="{ 
         showAddModal: false, 
         showEditModal: false, 
-        selectedUser: { id: '', name: '', email: '', status: 'active', tier: 'free', is_admin: false }
+        showDeleteModal: false,
+        selectedUser: { id: '', name: '', email: '', status: 'active', tier: 'free', is_admin: false },
+        userToDelete: { id: '', name: '' }
     }" class="relative">
 
         <!-- Header -->
@@ -142,14 +144,16 @@
 
                                         <!-- Delete Form -->
                                         @if($user->id !== auth()->id())
-                                            <form method="POST" action="{{ route('admin.users.delete', ['id' => $user->id]) }}" onsubmit="return confirm('Confirmez-vous la suppression de cet utilisateur ?');" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="p-1.5 text-slate-400 hover:text-[#ba1a1a] rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                                                    <span class="material-symbols-outlined text-[18px]">delete</span>
-                                                </button>
-                                            </form>
-                                        @endif
+                                             <button @click="
+                                                 userToDelete = { 
+                                                     id: '{{ $user->id }}', 
+                                                     name: '{{ addslashes($user->name) }}' 
+                                                 };
+                                                 showDeleteModal = true;
+                                             " type="button" class="p-1.5 text-slate-400 hover:text-[#ba1a1a] rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                                 <span class="material-symbols-outlined text-[18px]">delete</span>
+                                             </button>
+                                         @endif
                                     </div>
                                 </td>
                             </tr>
@@ -326,6 +330,34 @@
                         <button type="submit" class="px-6 py-2.5 bg-[#00288e] hover:bg-[#1e40af] text-white rounded-xl text-xs font-semibold shadow-md">Sauvegarder</button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div x-show="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center px-4" x-cloak>
+            <!-- Backdrop -->
+            <div @click="showDeleteModal = false" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+            <!-- Modal Body -->
+            <div class="bg-white dark:bg-[#1a2b3c] w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden" x-transition>
+                <div class="p-6 text-center">
+                    <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-950/30 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto mb-4">
+                        <span class="material-symbols-outlined text-2xl">warning</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Confirmer la suppression</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">
+                        Êtes-vous sûr de vouloir supprimer l'utilisateur <strong x-text="userToDelete.name" class="font-semibold text-slate-800 dark:text-slate-200"></strong> ? Cette action est irréversible et supprimera toutes ses transactions et données associées.
+                    </p>
+                    <form method="POST" :action="'/admin/users/' + userToDelete.id" class="flex gap-3 justify-center">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" @click="showDeleteModal = false" class="flex-1 px-4 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold transition-all">
+                            Annuler
+                        </button>
+                        <button type="submit" class="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-semibold transition-all shadow-md shadow-red-600/10">
+                            Supprimer
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
 
