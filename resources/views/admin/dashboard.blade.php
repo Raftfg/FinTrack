@@ -122,35 +122,39 @@
                 <a href="{{ route('admin.logs') }}" class="text-[#00288e] dark:text-[#b8c4ff] text-xs font-semibold hover:underline">Voir tous les logs</a>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-left border-collapse table-fixed min-w-[950px]">
                     <thead>
                         <tr class="text-slate-400 dark:text-slate-500 text-xs font-bold border-b border-slate-100 dark:border-slate-800">
-                            <th class="pb-3 font-semibold">HORODATAGE</th>
-                            <th class="pb-3 font-semibold">TYPE D'ÉVÉNEMENT</th>
-                            <th class="pb-3 font-semibold">UTILISATEUR AFFECTÉ</th>
-                            <th class="pb-3 font-semibold">GRAVITÉ</th>
-                            <th class="pb-3 font-semibold">DESCRIPTION</th>
-                            <th class="pb-3 font-semibold text-right">ACTION</th>
+                            <th class="px-4 pb-3 font-semibold w-[16%]">HORODATAGE</th>
+                            <th class="px-4 pb-3 font-semibold w-[22%]">TYPE D'ÉVÉNEMENT</th>
+                            <th class="px-4 pb-3 font-semibold w-[16%]">UTILISATEUR AFFECTÉ</th>
+                            <th class="px-4 pb-3 font-semibold w-[10%]">GRAVITÉ</th>
+                            <th class="px-4 pb-3 font-semibold w-[31%]">DESCRIPTION</th>
+                            <th class="px-4 pb-3 font-semibold text-right w-[5%]">ACTION</th>
                         </tr>
                     </thead>
                     <tbody class="text-xs divide-y divide-slate-100 dark:divide-slate-800">
                         @forelse($criticalLogs as $log)
                             <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
-                                <td class="py-4 text-slate-500 dark:text-slate-400">{{ $log['timestamp'] }}</td>
-                                <td class="py-4 font-semibold">
+                                <td class="px-4 py-4 text-slate-500 dark:text-slate-400 whitespace-nowrap">{{ $log['timestamp'] }}</td>
+                                <td class="px-4 py-4 font-semibold break-words">
                                     <span class="flex items-center gap-1.5">
-                                        <span class="material-symbols-outlined text-[16px] text-[#ba1a1a]">warning</span>
-                                        {{ $log['event_type'] }}
+                                        <span class="material-symbols-outlined text-[16px] text-[#ba1a1a] shrink-0">warning</span>
+                                        <span class="break-words">{{ $log['event_type'] }}</span>
                                     </span>
                                 </td>
-                                <td class="py-4 font-medium">{{ $log['user'] }}</td>
-                                <td class="py-4">
+                                <td class="px-4 py-4 font-medium break-words">{{ $log['user'] }}</td>
+                                <td class="px-4 py-4 whitespace-nowrap">
                                     <span class="bg-[#ffdad6] text-[#ba1a1a] dark:bg-[#93000a]/20 dark:text-[#ffdad6] px-2 py-0.5 rounded text-[10px] font-bold uppercase">
                                         {{ $log['severity'] }}
                                     </span>
                                 </td>
-                                <td class="py-4 text-slate-500 dark:text-slate-400">{{ $log['description'] }}</td>
-                                <td class="py-4 text-right">
+                                <td class="px-4 py-4 text-slate-500 dark:text-slate-400 break-all">
+                                    <div class="line-clamp-2 cursor-pointer hover:line-clamp-none transition-all duration-200" title="{{ $log['description'] }}">
+                                        {{ $log['description'] }}
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4 text-right whitespace-nowrap">
                                     <a href="{{ route('admin.logs', ['search' => $log['event_type']]) }}" class="text-[#00288e] dark:text-[#b8c4ff] material-symbols-outlined p-1 hover:bg-[#00288e]/10 rounded-full transition-colors">
                                         visibility
                                     </a>
@@ -158,7 +162,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="py-6 text-center text-slate-400">Aucun log critique récent.</td>
+                                <td colspan="6" class="px-4 py-6 text-center text-slate-400">Aucun log critique récent.</td>
                             </tr>
                         @endforelse
                     </tbody>

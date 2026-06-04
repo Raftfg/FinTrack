@@ -106,37 +106,37 @@
     <!-- Logs Table -->
     <div class="bg-white dark:bg-[#1a2b3c] rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden mb-8">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="w-full text-left border-collapse table-fixed min-w-[950px]">
                 <thead>
                     <tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 text-xs font-bold border-b border-slate-100 dark:border-slate-800">
-                        <th class="px-6 py-4 font-semibold">TIMESTAMP</th>
-                        <th class="px-6 py-4 font-semibold">TYPE D'ÉVÉNEMENT</th>
-                        <th class="px-6 py-4 font-semibold">INITIÉ PAR</th>
-                        <th class="px-6 py-4 font-semibold">GRAVITÉ</th>
-                        <th class="px-6 py-4 font-semibold">DESCRIPTION</th>
+                        <th class="px-6 py-4 font-semibold w-[15%]">TIMESTAMP</th>
+                        <th class="px-6 py-4 font-semibold w-[20%]">TYPE D'ÉVÉNEMENT</th>
+                        <th class="px-6 py-4 font-semibold w-[15%]">INITIÉ PAR</th>
+                        <th class="px-6 py-4 font-semibold w-[10%]">GRAVITÉ</th>
+                        <th class="px-6 py-4 font-semibold w-[40%]">DESCRIPTION</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
                     @forelse($logs as $log)
                         <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/10 transition-colors">
-                            <td class="px-6 py-4 text-slate-400">{{ $log['timestamp'] }}</td>
-                            <td class="px-6 py-4 font-semibold">
+                            <td class="px-6 py-4 text-slate-400 whitespace-nowrap">{{ $log['timestamp'] }}</td>
+                            <td class="px-6 py-4 font-semibold break-words">
                                 <span class="flex items-center gap-1.5">
-                                    <span class="material-symbols-outlined text-[16px] {{ $log['severity'] === 'Critical' ? 'text-[#ba1a1a]' : ($log['severity'] === 'Warning' ? 'text-[#ffb3ad] dark:text-[#ffdad6]' : 'text-[#00288e] dark:text-[#b8c4ff]') }}">
+                                    <span class="material-symbols-outlined text-[16px] {{ $log['severity'] === 'Critical' ? 'text-[#ba1a1a]' : ($log['severity'] === 'Warning' ? 'text-[#ffb3ad] dark:text-[#ffdad6]' : 'text-[#00288e] dark:text-[#b8c4ff]') }} shrink-0">
                                         {{ $log['icon'] }}
                                     </span>
-                                    {{ $log['event_type'] }}
+                                    <span class="break-words">{{ $log['event_type'] }}</span>
                                 </span>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 break-words">
                                 <div class="flex items-center gap-2">
-                                    <div class="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[9px] font-bold border border-slate-200 dark:border-slate-700">
+                                    <div class="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[9px] font-bold border border-slate-200 dark:border-slate-700 shrink-0">
                                         {{ $log['user_initials'] }}
                                     </div>
-                                    <span class="font-medium">{{ $log['user'] }}</span>
+                                    <span class="font-medium truncate">{{ $log['user'] }}</span>
                                 </div>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 @if($log['severity'] === 'Critical')
                                     <span class="bg-[#ffdad6] text-[#ba1a1a] dark:bg-[#93000a]/20 dark:text-[#ffdad6] px-2 py-0.5 rounded text-[10px] font-bold uppercase">Critique</span>
                                 @elseif($log['severity'] === 'Warning')
@@ -147,7 +147,11 @@
                                     <span class="bg-blue-50 text-blue-800 dark:bg-blue-950/20 dark:text-blue-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Info</span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 text-slate-500 dark:text-slate-400">{{ $log['description'] }}</td>
+                            <td class="px-6 py-4 text-slate-500 dark:text-slate-400 break-all">
+                                <div class="line-clamp-2 cursor-pointer hover:line-clamp-none transition-all duration-200" title="{{ $log['description'] }}">
+                                    {{ $log['description'] }}
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>
