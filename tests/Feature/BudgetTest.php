@@ -4,7 +4,9 @@ use App\Domain\Budget\Models\Budget;
 use App\Domain\Transaction\Enums\TransactionType;
 use App\Domain\Transaction\Models\Transaction;
 use App\Models\User;
+use App\Notifications\SystemAlert;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 
 uses(RefreshDatabase::class);
 
@@ -141,3 +143,36 @@ test('creating transaction triggers budget warnings and alert notifications', fu
     $this->assertEquals(1, $user->unreadNotifications()->count());
     $this->assertStringContainsString('Dépassé', $user->unreadNotifications()->first()->data['title']);
 });
+
+test('system alert is sent via mail and database channels', function () {
+    Notification::fake();
+
+    $user = User::factory()->create();
+    
+    // Create a budget
+    Budget::create([
+        'user_id' => $user->id,
+        'categorie' => 'Alimentation',
+        'montant_limite' => 1000,
+        'mois' => 6,
+        'annee' => 2026,
+    ]);
+
+    // Create a transaction exceeding 80% limit
+    Transaction::create([
+        'user_id' => $user->id,
+        'type' => TransactionType::DEPENSE,
+        'montant' => 850,
+        'categorie' => 'Alimentation',
+        'date_transaction' => '2026-06-05',
+    ]);
+
+    Notification::assertSentTo(
+        $user,
+        SystemAlert::class,
+        function ($notification, $channels) {
+            return in_array('database', $channels) && in_array('mail', $channels);
+        }
+    );
+});
+

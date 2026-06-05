@@ -1,0 +1,12 @@
+{
+    frankenphp
+    order php_server before file_server
+}
+
+:{$PORT} {
+    root * public/
+    php_server {
+        resolve_root_symlink
+    }
+    file_server
+}

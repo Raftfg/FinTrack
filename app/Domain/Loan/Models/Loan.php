@@ -46,6 +46,11 @@ class Loan extends Model
         return (int) (($this->montant_rembourse / $this->montant_initial) * 100);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
+
     public function transactions()
     {
         return $this->hasMany(
