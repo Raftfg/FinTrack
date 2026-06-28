@@ -5,13 +5,14 @@ namespace App\Domain\Loan\Models;
 use App\Domain\Loan\Enums\LoanStatus;
 use App\Domain\Loan\Observers\LoanObserver;
 use App\Domain\Transaction\Models\Transaction;
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Loan extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogsActivity;
 
     protected $fillable = [
         'user_id', 'personne', 'email', 'telephone', 'montant_initial',

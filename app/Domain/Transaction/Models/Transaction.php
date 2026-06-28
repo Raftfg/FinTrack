@@ -6,13 +6,14 @@ use App\Domain\Loan\Models\Loan;
 use App\Domain\Transaction\Enums\TransactionType;
 use App\Domain\Transaction\Observers\TransactionObserver;
 use App\Models\User;
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogsActivity;
 
     protected $fillable = [
         'user_id', 'type', 'montant', 'categorie',

@@ -2,10 +2,32 @@
 set -e
 
 echo "==> Waiting for PostgreSQL to be ready..."
-MAX_RETRIES=30
+MAX_RETRIES=40
 COUNT=0
 
-until php artisan db:show > /dev/null 2>&1; do
+# Direct PHP PDO connection test (more reliable than artisan db:show)
+DB_CHECK='
+$url  = getenv("DATABASE_URL") ?: getenv("DB_URL");
+$host = getenv("DB_HOST") ?: "localhost";
+$port = getenv("DB_PORT") ?: "5432";
+$name = getenv("DB_DATABASE") ?: "railway";
+$user = getenv("DB_USERNAME") ?: "postgres";
+$pass = getenv("DB_PASSWORD") ?: "";
+
+try {
+    if ($url) {
+        $pdo = new PDO($url, null, null, [PDO::ATTR_TIMEOUT => 2]);
+    } else {
+        $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$name", $user, $pass, [PDO::ATTR_TIMEOUT => 2]);
+    }
+    exit(0);
+} catch (PDOException $e) {
+    fwrite(STDERR, "DB check: " . $e->getMessage() . PHP_EOL);
+    exit(1);
+}
+'
+
+until php -r "$DB_CHECK" 2>/dev/null; do
     COUNT=$((COUNT + 1))
     if [ "$COUNT" -ge "$MAX_RETRIES" ]; then
         echo "ERROR: PostgreSQL did not become ready after ${MAX_RETRIES} retries. Aborting."
